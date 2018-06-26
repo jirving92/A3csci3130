@@ -41,6 +41,7 @@ public class CreateContactAcitivity extends Activity {
 
         appState.firebaseReference.child(personID).setValue(person);
 
+
         finish();
 
     }
