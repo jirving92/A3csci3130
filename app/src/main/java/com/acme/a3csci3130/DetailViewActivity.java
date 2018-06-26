@@ -1,6 +1,7 @@
 package com.acme.a3csci3130;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -58,6 +59,8 @@ public class DetailViewActivity extends Activity {
 
     public void eraseContact(View v)
     {
-        //TODO: Erase contact functionality
+        appState.firebaseReference.child(receivedPersonInfo.uid).removeValue();
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
     }
 }
