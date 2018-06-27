@@ -29,7 +29,7 @@ public class DetailViewActivity extends Activity {
         provinceField = (EditText) findViewById(R.id.province);
 
         if(receivedPersonInfo != null){
-            businessNumberField.setText(receivedPersonInfo.businessNumber);
+            businessNumberField.setText(String.valueOf(receivedPersonInfo.businessNumber));
             nameField.setText(receivedPersonInfo.name);
             primaryBusinessField.setText(receivedPersonInfo.primaryBusiness);
             addressField.setText(receivedPersonInfo.address);
