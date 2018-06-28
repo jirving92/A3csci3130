@@ -14,6 +14,12 @@ public class CreateContactAcitivity extends Activity {
         provinceField;
     private MyApplicationData appState;
 
+    /**
+     * The onCreate method creates the CreateContactActivity where the user can create a
+     * business contact.
+     * @param savedInstanceState the state of the create contact activity
+     * @return returns the view containing all the editText fields and a button.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,6 +35,11 @@ public class CreateContactAcitivity extends Activity {
         provinceField = (EditText) findViewById(R.id.province);
     }
 
+    /**
+     * The SubmitInfoButton function takes all the user input data and creates a new contact.
+     * @param v the view parameter
+     * @return returns a new contact to the DB.
+     */
     public void submitInfoButton(View v) {
         //each entry needs a unique ID
         String personID = appState.firebaseReference.push().getKey();

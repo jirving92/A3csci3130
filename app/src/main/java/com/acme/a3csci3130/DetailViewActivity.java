@@ -15,6 +15,13 @@ public class DetailViewActivity extends Activity {
     Contact receivedPersonInfo;
     private MyApplicationData appState;
 
+    /**
+     * DetailViewActivity creates a view where the user can view detailed information about the
+     * Contact, can edit the information, and can delete the contact.
+     * @param savedInstanceState the state of the DetailViewActivity
+     * @return returns a view containing the text fields for the editable contact, as well as a
+     * edit and delete button
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +44,12 @@ public class DetailViewActivity extends Activity {
         }
     }
 
+    /**
+     * The UpdateContact function will take the information the user enters in this form, and apply
+     * the changes to the entry in the DB.
+     * @param v View for updating the contact
+     * @return returns an updated contact to the DB.
+     */
     public void updateContact(View v){
         String name = nameField.getText().toString();
         String businessNumber = businessNumberField.getText().toString();
@@ -56,6 +69,12 @@ public class DetailViewActivity extends Activity {
 
 
     }
+
+    /**
+     * The following function erases a contact from the DB once the erase button is clicked.
+     * @param v View for erasing a contact
+     * @return deletes the contact from the DB.
+     */
 
     public void eraseContact(View v)
     {

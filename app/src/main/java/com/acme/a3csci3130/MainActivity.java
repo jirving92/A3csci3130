@@ -17,6 +17,10 @@ public class MainActivity extends Activity {
     private ListView contactListView;
     private FirebaseListAdapter<Contact> firebaseAdapter;
 
+    /**
+     * The following method creates the MainActivity.
+     * @param savedInstanceState State of the onCreate function for the main activity.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,12 +56,22 @@ public class MainActivity extends Activity {
         });
     }
 
+    /**
+     * The CreateContactButton function creates an intent that will bring the user to the
+     * CreateContact Activity.
+     * @param v View for the createContactButton
+     */
     public void createContactButton(View v)
     {
         Intent intent=new Intent(this, CreateContactAcitivity.class);
         startActivity(intent);
     }
 
+    /**
+     * The ShowDetailView function will create an intent and bring he user to the detail
+     * view of whichever object is clicked in ListView.
+     * @param person Object containing all of the parameters for the business contact
+     */
     private void showDetailView(Contact person)
     {
         Intent intent = new Intent(this, DetailViewActivity.class);
