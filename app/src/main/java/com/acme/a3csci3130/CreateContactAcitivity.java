@@ -37,6 +37,7 @@ public class CreateContactAcitivity extends Activity {
         String primaryBusiness = primaryBusinessField.getText().toString();
         String address = addressField.getText().toString();
         String province = provinceField.getText().toString();
+
         Contact person = new Contact(personID, businessNumber, name, primaryBusiness, address,
                 province);
 

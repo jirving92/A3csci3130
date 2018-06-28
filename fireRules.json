@@ -4,7 +4,7 @@
     ".write": "true",
     "contacts": {
       "$contact": {
-        ".validate": "newData.child('businessNumber').exists() && newData.child('name').exists() && newData.child('primaryBusiness').exists()",
+        ".validate": "newData.hasChildren(['businessNumber', 'name', 'primaryBusiness'])",
         "businessNumber": {
           ".validate": "newData.isString() && newData.val().matches(/^[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]/);"
         },
@@ -18,7 +18,7 @@
           ".validate": "newData.isString() && newData.val().length < 50"
         },
         "province": {
-          ".validate": "newData.isString() && newData.val().matches(/^(NB|NS)$/);"
+          ".validate": "newData.isString() && newData.val().matches(/^(AB|BC|MB|NB|NL|NS|NT|NU|ON|PE|QC|SK|YT| )$/) || newData.val().length == 0;"
         }
 
       }

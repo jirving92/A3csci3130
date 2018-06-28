@@ -2,8 +2,11 @@ package com.acme.a3csci3130;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
+import android.support.test.espresso.Espresso;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
+
+import static android.support.test.espresso.action.ViewActions.replaceText;
 import static org.hamcrest.Matchers.anything;
 import static org.hamcrest.Matchers.startsWith;
 import static org.hamcrest.Matchers.containsString;
@@ -47,6 +50,12 @@ public class EspressoTest {
     String addressText = "123 Sample Street";
     String provinceText = "NB";
 
+    String businessNumberTextUpdate = "111111111";
+    String nameTextUpdate = "Sample SecondName";
+    String primaryBusinessTextUpdate = "Fish Monger";
+    String addressTextUpdate = "111 SampleStreet";
+    String provinceTextUpdate = "QC";
+
 
     @Rule
     public ActivityTestRule<MainActivity> mActivityRule = new ActivityTestRule<>(MainActivity.class);
@@ -85,5 +94,33 @@ public class EspressoTest {
         onView(withId(R.id.province)).check(matches(withText(containsString("NB"))));
     }
 
+    @Test
+    public void D_UpdateContact() throws Exception {
+        Thread.sleep(2000);
+
+        onData(anything()).inAdapterView(withId(R.id.listView)).atPosition(2).check(matches(withText(startsWith("Sample Name"))));
+        onData(anything()).inAdapterView(withId(R.id.listView)).atPosition(2).perform(click());
+
+        onView(withId(R.id.businessNumber)).perform(replaceText(businessNumberTextUpdate),
+                closeSoftKeyboard());
+        onView(withId(R.id.name)).perform(replaceText(nameTextUpdate), closeSoftKeyboard());
+        onView(withId(R.id.primaryBusiness)).perform(replaceText(primaryBusinessTextUpdate),
+                closeSoftKeyboard());
+        onView(withId(R.id.address)).perform(replaceText(addressTextUpdate), closeSoftKeyboard());
+        onView(withId(R.id.province)).perform(replaceText(provinceTextUpdate),
+                closeSoftKeyboard());
+        onView(withId(R.id.updateButton)).perform(click());
+
+        Espresso.pressBack();
+
+        onData(anything()).inAdapterView(withId(R.id.listView)).atPosition(2).check(matches(withText(startsWith("Sample SecondName"))));
+        onData(anything()).inAdapterView(withId(R.id.listView)).atPosition(2).perform(click());
+
+        onView(withId(R.id.businessNumber)).check(matches(withText(containsString(businessNumberTextUpdate))));
+        onView(withId(R.id.name)).check(matches(withText(containsString(nameTextUpdate))));
+        onView(withId(R.id.primaryBusiness)).check(matches(withText(containsString(primaryBusinessTextUpdate))));
+        onView(withId(R.id.address)).check(matches(withText(containsString(addressTextUpdate))));
+        onView(withId(R.id.province)).check(matches(withText(containsString(provinceTextUpdate))));
+    }
 
 }
