@@ -7,9 +7,12 @@ import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
 import static android.support.test.espresso.action.ViewActions.replaceText;
+import static android.support.test.espresso.assertion.ViewAssertions.doesNotExist;
+import static android.support.test.espresso.matcher.ViewMatchers.hasDescendant;
 import static org.hamcrest.Matchers.anything;
 import static org.hamcrest.Matchers.startsWith;
 import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.not;
 
 
 import org.junit.FixMethodOrder;
@@ -79,26 +82,26 @@ public class EspressoTest {
         onView(withId(R.id.province)).perform(typeText(provinceText),
                 closeSoftKeyboard());
         onView(withId(R.id.submitButton)).perform(click());
-        onData(anything()).inAdapterView(withId(R.id.listView)).atPosition(2).check(matches(withText(startsWith("Sample Name"))));
+        onData(anything()).inAdapterView(withId(R.id.listView)).atPosition(2).check(matches(withText(containsString(nameText))));
     }
 
     @Test
     public void C_ReadContact() throws Exception {
         Thread.sleep(2000);
-        onData(anything()).inAdapterView(withId(R.id.listView)).atPosition(2).check(matches(withText(startsWith("Sample Name"))));
+        onData(anything()).inAdapterView(withId(R.id.listView)).atPosition(2).check(matches(withText(containsString(nameText))));
         onData(anything()).inAdapterView(withId(R.id.listView)).atPosition(2).perform(click());
-        onView(withId(R.id.businessNumber)).check(matches(withText(containsString("123456789"))));
-        onView(withId(R.id.name)).check(matches(withText(containsString("Sample Name"))));
-        onView(withId(R.id.primaryBusiness)).check(matches(withText(containsString("Fisher"))));
-        onView(withId(R.id.address)).check(matches(withText(containsString("123 Sample Street"))));
-        onView(withId(R.id.province)).check(matches(withText(containsString("NB"))));
+        onView(withId(R.id.businessNumber)).check(matches(withText(containsString(businessNumberText))));
+        onView(withId(R.id.name)).check(matches(withText(containsString(nameText))));
+        onView(withId(R.id.primaryBusiness)).check(matches(withText(containsString(primaryBusinessText))));
+        onView(withId(R.id.address)).check(matches(withText(containsString(addressText))));
+        onView(withId(R.id.province)).check(matches(withText(containsString(provinceText))));
     }
 
     @Test
     public void D_UpdateContact() throws Exception {
         Thread.sleep(2000);
 
-        onData(anything()).inAdapterView(withId(R.id.listView)).atPosition(2).check(matches(withText(startsWith("Sample Name"))));
+        onData(anything()).inAdapterView(withId(R.id.listView)).atPosition(2).check(matches(withText(containsString(nameText))));
         onData(anything()).inAdapterView(withId(R.id.listView)).atPosition(2).perform(click());
 
         onView(withId(R.id.businessNumber)).perform(replaceText(businessNumberTextUpdate),
@@ -113,7 +116,7 @@ public class EspressoTest {
 
         Espresso.pressBack();
 
-        onData(anything()).inAdapterView(withId(R.id.listView)).atPosition(2).check(matches(withText(startsWith("Sample SecondName"))));
+        onData(anything()).inAdapterView(withId(R.id.listView)).atPosition(2).check(matches(withText(containsString(nameTextUpdate))));
         onData(anything()).inAdapterView(withId(R.id.listView)).atPosition(2).perform(click());
 
         onView(withId(R.id.businessNumber)).check(matches(withText(containsString(businessNumberTextUpdate))));
@@ -122,5 +125,19 @@ public class EspressoTest {
         onView(withId(R.id.address)).check(matches(withText(containsString(addressTextUpdate))));
         onView(withId(R.id.province)).check(matches(withText(containsString(provinceTextUpdate))));
     }
+
+    @Test
+    public void E_DeleteContact() throws Exception {
+        Thread.sleep(2000);
+
+        onData(anything()).inAdapterView(withId(R.id.listView)).atPosition(2).check(matches(withText(containsString(nameTextUpdate))));
+        onData(anything()).inAdapterView(withId(R.id.listView)).atPosition(2).perform(click());
+
+        onView(withId(R.id.deleteButton)).perform(click());
+
+        onView(withId(R.id.listView)).check(matches(not(hasDescendant(withText(nameTextUpdate)))));
+    }
+
+
 
 }
